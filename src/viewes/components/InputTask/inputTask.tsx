@@ -1,5 +1,6 @@
-import React , { useState } from 'react'
-import styles from './inputTask.module.scss'
+import React, { useState } from 'react';
+import { useSpring, animated } from 'react-spring';
+import styles from './inputTask.module.scss';
 
 type Params = {
     id: string,
@@ -21,86 +22,80 @@ export const InputTask: React.FC<InputTaskProps> = ({
     onRemoved,
     onDane,
 }) => {
-
     const [checked, setChecked] = useState(false);
     const [isEditedMode, setIsEditedMode] = useState(false);
     const [inputValue, setInputValue] = useState(title);
 
+    // Анимация для появления заметки
+    const fadeInProps = useSpring({
+        opacity: 1,
+        transform: 'translateY(0)',
+        from: { opacity: 0, transform: 'translateY(-10px)' },
+    });
 
     return (
-            <div className={styles.inputTask}>
-               <label 
-               className={styles.inputTaskLabel}
-               >
-                   <input
-                       className={styles.inputTaskCheckbox}
-                       type="checkbox"
-                       disabled={isEditedMode}
-                       id="task"
-                       checked={checked}
-                       onChange={() => {
-                           setChecked(!checked);
-                           onDane(id);
-                       }}
-                   />
+        <animated.div style={fadeInProps} className={styles.inputTask}>
+            <label className={styles.inputTaskLabel}>
+                <input
+                    className={styles.inputTaskCheckbox}
+                    type="checkbox"
+                    disabled={isEditedMode}
+                    id="task"
+                    checked={checked}
+                    onChange={() => {
+                        setChecked(!checked);
+                        onDane(id);
+                    }}
+                />
 
-    
-                   {isEditedMode ? (
-                       <input
-                           className={styles.inputTaskInput}
-                           type="text"
-                           value={inputValue}
-                           onChange={(e) => setInputValue(e.target.value)}
-                           onKeyDown={(e) => {
-                               if(e.key === 'Enter') {
-                                   onEdited({id, title: inputValue});
-                                   setIsEditedMode(false);
-                               }
-                           }}
-                       />
-                   ) : (
-                       <p
-                           className={styles.inputTaskTitle}
-                       >
-                           {title}
-                       </p>
-                   )}
-                   
-               </label>
+                {isEditedMode ? (
+                    <input
+                        className={styles.inputTaskInput}
+                        type="text"
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                onEdited({ id, title: inputValue });
+                                setIsEditedMode(false);
+                            }
+                        }}
+                    />
+                ) : (
+                    <p className={styles.inputTaskTitle}>{title}</p>
+                )}
+            </label>
 
-              <div>
-             {isEditedMode ? (
-                   <button
-                       className={styles.inputTaskSave}
-                       onClick={() => {
-                           onEdited({id, title: inputValue});
-                           setIsEditedMode(false);
-                       }}
-                   >
+            <div>
+                {isEditedMode ? (
+                    <button
+                        className={styles.inputTaskSave}
+                        onClick={() => {
+                            onEdited({ id, title: inputValue });
+                            setIsEditedMode(false);
+                        }}
+                    >
+                      
+                    </button>
+                ) : (
+                    <button
+                        className={styles.inputTaskEdit}
+                        onClick={() => setIsEditedMode(true)}
+                    >
                        
-                   </button>
-               ) : (
-                   <button
-                       className={styles.inputTaskEdit}
-                       onClick={() => setIsEditedMode(true)}
-                   >
-                       
-                   </button>
-               )}
+                    </button>
+                )}
 
-               <button
-                   className={styles.inputTaskRemove}
-                   onClick={() => {
-                    if(window.confirm('Are you sure?')) {
-                        onRemoved(id);
-                    }
-                   }
-                }
-               >
-                  
-               </button>
-              </div>
+                <button
+                    className={styles.inputTaskRemove}
+                    onClick={() => {
+                        if (window.confirm('Are you sure?')) {
+                            onRemoved(id);
+                        }
+                    }}
+                >
+                </button>
             </div>
- 
-    )
-}
+        </animated.div>
+    );
+};
