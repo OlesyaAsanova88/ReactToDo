@@ -12,9 +12,6 @@ export const InputPlus: React.FC<InputPlusProps> = ({
     const [inputValue, setInputValue] = useState('');
 
     const onAddHandler = (e?: React.KeyboardEvent<HTMLInputElement>) => {
-
-        console.log('onAddHandler');
-        
         if(e && e.key !== 'Enter') return
             onAdd(inputValue);
             setInputValue('');   

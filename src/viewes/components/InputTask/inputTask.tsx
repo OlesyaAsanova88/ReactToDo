@@ -6,7 +6,6 @@ type Params = {
     title: string
 }
 
-
 interface InputTaskProps {
     id: string,
     title: string,

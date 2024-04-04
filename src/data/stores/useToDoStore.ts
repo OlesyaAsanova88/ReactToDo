@@ -13,46 +13,95 @@ interface ToDoStore {
     updateTask: (id: string, title: string) => void;
     removeTask: (id: string) => void;
 }
-export const useToDoStore = create<ToDoStore>((set, get) => ({
-    tasks: [
-        {
-            id: "1",
-            title: 'I like React',
-            createdAt: 0,
+
+export const useToDoStore = create<ToDoStore>((set, get) => {
+    
+    const storedTasks = localStorage.getItem('tasks');
+    const initialTasks: Task[] = storedTasks ? JSON.parse(storedTasks) : [];
+
+    set({
+        tasks: initialTasks,
+    });
+
+    return ({
+        tasks: initialTasks,
+        createTask: (title) => {
+            const { tasks } = get();
+            const newTask = {
+                id: generateId(),
+                title: title,
+                createdAt: Date.now(),
+            };
+            const updatedTasks = [newTask, ...tasks];
+            set({ tasks: updatedTasks });
+           
+            localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+        },
+
+        updateTask: (id: string, title: string) => {
+            const { tasks } = get();
+            const updatedTasks = tasks.map(task => {
+                if (task.id === id) {
+                    return { ...task, title: title };
+                }
+                return task;
+            });
+            set({ tasks: updatedTasks });
+            
+            localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+        },
+
+        removeTask: (id: string) => {
+            const { tasks } = get();
+            const updatedTasks = tasks.filter(task => task.id !== id);
+            set({ tasks: updatedTasks });
+            
+            localStorage.setItem('tasks', JSON.stringify(updatedTasks));
         }
-    ],
-    createTask: (title) => {
-        const { tasks } = get();
-        const newTask = {
-            id: generateId(),
-            title: title,
-            createdAt: Date.now(),
-        };
-        set({
-            tasks: [newTask].concat(tasks),
-        });
-    },
-
-    updateTask: (id: string, title: string) => {
-        const { tasks } = get();
+    });
+});
 
 
-        const newTasks = tasks.map( (task) => {
-            if(task.id === id) {
-                task.title = title
-            }
-            return task
-        })
+// export const useToDoStore = create<ToDoStore>((set, get) => ({
+//     tasks: [
+//         {
+//             id: '1',
+//             title: 'Task 1',
+//             createdAt: Date.now(),
+//         }
+//     ],
+//     createTask: (title) => {
+//         const { tasks } = get();
+//         const newTask = {
+//             id: generateId(),
+//             title: title,
+//             createdAt: Date.now(),
+//         };
+//         set({
+//             tasks: [newTask].concat(tasks),
+//         });
+//     },
 
-        set({
-            tasks: newTasks
-        })
-},
+//     updateTask: (id: string, title: string) => {
+//         const { tasks } = get();
+
+
+//         const newTasks = tasks.map( (task) => {
+//             if(task.id === id) {
+//                 task.title = title
+//             }
+//             return task
+//         })
+
+//         set({
+//             tasks: newTasks
+//         })
+// },
       
-    removeTask: (id: string) => {
-        const { tasks } = get();
-        set({
-            tasks: tasks.filter((task) => task.id !== id)
-        });
-    },    
-}));
+//     removeTask: (id: string) => {
+//         const { tasks } = get();
+//         set({
+//             tasks: tasks.filter((task) => task.id !== id)
+//         });
+//     },    
+// }));
