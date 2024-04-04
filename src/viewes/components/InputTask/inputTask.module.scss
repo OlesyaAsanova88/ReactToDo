@@ -1,0 +1,88 @@
+.inputTask {
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    width: 97%;
+    padding: 10px;
+    border-bottom: 1px solid var(--accent-color);
+    
+    background-color: transparent;
+    font: 16px/1.4 'Roboto', sans-serif;
+
+    &Label {
+        display: flex;
+        align-items: end;
+    }
+
+    &Input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid var(--accent-color);
+        border-radius: 5px;
+        font: 16px/1.4 'Roboto', sans-serif;
+    }
+
+    &Input:focus {
+        outline: none;
+        box-shadow: 0 0 10px var(--accent-color);
+        background-color: #fff;
+    }
+
+    &Checkbox {
+        margin-right: 10px;
+        width: 20px;
+        height: 20px;
+        border: 1px solid var(--accent-color);
+        border-radius: 5px;
+    }
+
+    &Checkbox:hover {
+        box-shadow: 0 0 10px var(--accent-color);
+    }
+
+    &Checkbox:checked {
+        accent-color: var(--accent-color);
+        width: 20px;
+        height: 20px;
+    }
+    &Title {
+        font-size: 16px;
+        color:  #fff; 
+    }
+
+    &Edit {
+        width: 30px;
+        height: 30px;
+        border: none;
+        background-image: url(./img/edit.svg);
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        background-size: 20px;
+        background-color: transparent;
+        cursor: pointer
+    }
+
+    &Remove {
+        width: 30px;
+        height: 30px;
+        border: none;
+        background-image: url(./img/trash.svg);
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        background-size: 20px;
+        background-color: transparent;
+        cursor: pointer
+    }
+    &Save {
+        width: 30px;
+        height: 30px;
+        border: none;
+        background-image: url(./img/check.svg);
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        background-size: 20px;
+        background-color: transparent;
+        cursor: pointer
+    }
+}

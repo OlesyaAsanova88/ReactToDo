@@ -1,0 +1,39 @@
+.inputPlus {
+    display: flex;
+    width: 100%;
+}
+.input {
+    width: 100%;
+    padding: 8px 16px;
+    border: 1px solid ;
+    border-radius: 20px;
+    background-color: antiquewhite;
+    font: 16px/1.4 'Roboto', sans-serif;
+}
+
+.input:focus {
+    outline: none;
+    box-shadow: 0 0 15px var(--accent-color);
+    background-color: #fff;
+}
+
+.button {
+    padding: 8px 30px;
+    background-color: var(--accent-color);
+    color: #fff;
+    border-radius: 20px 0  20px 0;
+    border: none;
+    cursor: pointer;
+    background-image: url(./img/plus.svg);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.button:hover {
+    background-color: var(--accent-color);
+    opacity: 0.8;
+    transition: 0.3s;
+}
+.button:focus {
+    box-shadow: 0 0 10px var(--accent-color);
+}
