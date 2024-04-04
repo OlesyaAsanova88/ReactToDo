@@ -30,7 +30,7 @@ export const ContentTask: React.FC = () => {
         }}
     />
 </section>
-<section className={styles.articleSection}>
+<section className={styles.articleSectionTwo}>
     {!tasks.length && (
         <p className={styles.articleText}>There is no tasks</p>
     )}

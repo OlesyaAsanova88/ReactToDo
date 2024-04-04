@@ -6,6 +6,8 @@
     width: 97%;
     padding: 10px;
     border-bottom: 1px solid var(--accent-color);
+    max-height: 700px;
+    overflow-y: auto;
     
     background-color: transparent;
     font: 16px/1.4 'Roboto', sans-serif;

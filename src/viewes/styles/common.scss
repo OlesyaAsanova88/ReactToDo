@@ -15,3 +15,30 @@ body {
 :root {
     --accent-color: #ed9c28;
 }
+
+/* Общие стили для скроллбара */
+::-webkit-scrollbar {
+    width: 7px; /* Ширина скроллбара */
+    height: 10px; /* Высота скроллбара */
+   
+  }
+  
+  /* Цвет трека (фона) скроллбара */
+  ::-webkit-scrollbar-track {
+    background-color: #363738;
+    border-radius: 6px;
+  }
+  
+  /* Цвет хэндла (бегунка) скроллбара */
+  ::-webkit-scrollbar-thumb {
+    background-color: #222;
+    border: 1px solid var(--accent-color);
+    border-radius: 6px; /* Закругление углов хэндла */
+  }
+  
+  /* Цвет хэндла при наведении */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #313233;
+  }
+  
+  
